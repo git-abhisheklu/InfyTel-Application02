@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerResponseDTO> getAllCustomers(Integer page, Integer size, String sortBY, String sortOrder) {
         Sort.Direction direction = sortOrder.equalsIgnoreCase("asc")? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(page,size);
+        Pageable pageable = PageRequest.of(page,size,Sort.by(direction, sortBY));
         Page<Customer> list = customerRepository.findAll(pageable);
         int totalCount = list.getSize();
         List<CustomerResponseDTO> dtoList = new ArrayList<>();
