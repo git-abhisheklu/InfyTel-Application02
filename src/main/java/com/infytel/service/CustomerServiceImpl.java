@@ -46,6 +46,22 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
+    public CustomerResponseDTO getCustomerByName(String name) {
+        Customer customer = customerRepository.findByName(name);
+        if(!Objects.isNull(customer)){
+            return Customer.prepareDTO(customer);
+        }
+        return null;
+    }
+
+    public CustomerResponseDTO getCustomerByAge(Integer age) {
+        Customer customer = customerRepository.findByAge(age);
+        if(!Objects.isNull(customer)){
+            return Customer.prepareDTO(customer);
+        }
+        return null;
+    }
+
     @Override
     public List<CustomerResponseDTO> getAllCustomers(Integer page, Integer size, String sortBY, String sortOrder) {
         Sort.Direction direction = sortOrder.equalsIgnoreCase("asc")? Sort.Direction.ASC : Sort.Direction.DESC;

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.Inet4Address;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,8 +44,26 @@ public class CustomerController {
         return new ResponseEntity<>(cRDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getByName", produces = "application/json")
+    public ResponseEntity<?> fetchCustomerByName(@RequestParam String name) {
+        CustomerResponseDTO cRDTO = customerServiceImpl.getCustomerByName(name);
+        if (Objects.isNull(cRDTO)) {
+            return new ResponseEntity<>("No record found for the given name...", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(cRDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getByAge", produces = "application/json")
+    public ResponseEntity<?> fetchCustomerByAge(@RequestParam Integer age ) {
+        CustomerResponseDTO cRDTO = customerServiceImpl.getCustomerByAge(age);
+        if (Objects.isNull(cRDTO)) {
+            return new ResponseEntity<>("No record found for the given name...", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(cRDTO, HttpStatus.OK);
+    }
+
     @GetMapping(produces = "application/json")
-    public List<CustomerResponseDTO> fetchCustomers(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String sortBy, @RequestParam String sortOrder) {
+    public List<CustomerResponseDTO> fetchCustomers(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "1") Integer size, @RequestParam(defaultValue = "phoneNumber") String sortBy, @RequestParam(defaultValue = "desc") String sortOrder) {
         return customerServiceImpl.getAllCustomers(page, size, sortBy, sortOrder);
     }
 

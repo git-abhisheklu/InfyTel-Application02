@@ -4,8 +4,10 @@ import com.infytel.dto.CustomerResponseDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name="Customer.findByAge", query = "Select c from Customer c where c.age= ?1")
 public class Customer {
     @Id
     @Column(name = "phone_number")
