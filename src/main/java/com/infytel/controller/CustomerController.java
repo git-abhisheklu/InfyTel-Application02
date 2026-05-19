@@ -55,7 +55,7 @@ public class CustomerController {
 
     @GetMapping(value = "/getByAge", produces = "application/json")
     public ResponseEntity<?> fetchCustomerByAge(@RequestParam Integer age ) {
-        CustomerResponseDTO cRDTO = customerServiceImpl.getCustomerByAge(age);
+        List<CustomerResponseDTO> cRDTO = customerServiceImpl.getCustomerByAge(age);
         if (Objects.isNull(cRDTO)) {
             return new ResponseEntity<>("No record found for the given name...", HttpStatus.OK);
         }

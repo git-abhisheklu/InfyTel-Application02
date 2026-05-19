@@ -54,12 +54,15 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-    public CustomerResponseDTO getCustomerByAge(Integer age) {
-        Customer customer = customerRepository.findByAge(age);
-        if(!Objects.isNull(customer)){
-            return Customer.prepareDTO(customer);
+    public List<CustomerResponseDTO> getCustomerByAge(Integer age) {
+        List<Customer> customerList = customerRepository.findByAge(age);
+        List<CustomerResponseDTO> customerResponseDTOList=new ArrayList<>();
+        if(!Objects.isNull(customerList)){
+            for(Customer cust:customerList){
+                customerResponseDTOList.add(Customer.prepareDTO(cust));
+            }
         }
-        return null;
+        return customerResponseDTOList;
     }
 
     @Override

@@ -4,7 +4,9 @@ import com.infytel.entity.Customer;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
     Customer findByName(String name);
-    Customer findByAge(Integer age);
+    List<Customer> findByAge(Integer age);
 }
