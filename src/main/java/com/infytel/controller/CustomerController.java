@@ -53,6 +53,15 @@ public class CustomerController {
         return new ResponseEntity<>(cRDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getByGender", produces = "application/json")
+    public ResponseEntity<?> fetchCustomerByGender(@RequestParam String gender) {
+        List<CustomerResponseDTO> cRDTO = customerServiceImpl.getCustomerByGender(gender.charAt(0));
+        if (Objects.isNull(cRDTO)) {
+            return new ResponseEntity<>("No record found for the given name...", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(cRDTO, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/getByAge", produces = "application/json")
     public ResponseEntity<?> fetchCustomerByAge(@RequestParam Integer age ) {
         List<CustomerResponseDTO> cRDTO = customerServiceImpl.getCustomerByAge(age);
